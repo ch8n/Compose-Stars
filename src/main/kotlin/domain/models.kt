@@ -1,22 +1,31 @@
 package domain
 
-import kotlin.math.roundToInt
+import Scene
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
 import kotlin.random.Random
 import kotlin.random.nextInt
 
 object Window {
     val DEBUG = true
-    val WIDTH = if (DEBUG) 400 else 1200
-    val HEIGHT = if (DEBUG) 400 else 800
+    val WIDTH = if (DEBUG) 800 else 1200
+    val HEIGHT = if (DEBUG) 800 else 800
+}
+
+sealed class SceneEntity {
+    abstract fun update(floatDelta: Float, scene: Scene)
 }
 
 data class Star(
-    var x: Float = Random.nextInt(-Window.WIDTH / 2..Window.WIDTH / 2).toFloat(),
-    var y: Float = Random.nextInt(-Window.HEIGHT / 2..Window.HEIGHT / 2).toFloat(),
+    var x: Float = Random.nextInt(0..Window.WIDTH).toFloat(),
+    var y: Float = Random.nextInt(0..Window.HEIGHT).toFloat(),
     var z: Float = Window.WIDTH.toFloat(),
-) {
-    fun update(){
-        x -= 1
-        y -= 1
+    val position: MutableState<Pair<Float, Float>> = mutableStateOf(x to y)
+) : SceneEntity() {
+    override fun update(floatDelta: Float, scene: Scene) {
+        println(floatDelta)
+        val transX = x + 1
+        val transY = y + 1
+        position.value = transX to transY
     }
 }
