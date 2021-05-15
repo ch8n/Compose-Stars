@@ -33,7 +33,7 @@ class Scene {
     fun setupScene() {
         sceneEntity.clear()
         stars.clear()
-        repeat(800 * 1) { stars.add(Star()) }
+        repeat(800 * 5) { stars.add(Star()) }
         sceneEntity.addAll(stars)
     }
 

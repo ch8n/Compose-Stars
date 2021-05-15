@@ -33,7 +33,6 @@ data class Star(
     }
 
     override fun update(scene: Scene) {
-        println("calls ${++calls}")
 
         // coordinates for tailing line
         previousCoordinates = previousCoordinates.copy(x, y, z)
