@@ -1,9 +1,6 @@
 package domain
 
 import Scene
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import kotlinx.coroutines.flow.MutableStateFlow
 
 object Window {
     val DEBUG = true
@@ -17,20 +14,29 @@ fun randomZ() = (0..Window.WIDTH).random().toFloat()
 
 
 sealed class SceneEntity {
-    abstract fun update(floatDelta: Float, scene: Scene)
+    abstract fun update(scene: Scene)
 }
 
 data class Star(
     private var z: Float = randomZ(),
-    val coordinates: MutableStateFlow<Pair<Float, Float>> = MutableStateFlow(Pair(randomX(), randomY()))
+     var x: Float = randomX(),
+     var y: Float = randomY(),
+    //val coordinates: MutableState<Pair<Float, Float>> = mutableStateOf(Pair(randomX(), randomY())),
 ) : SceneEntity() {
 
-    override fun update(floatDelta: Float, scene: Scene) {
-        val (x, y) = coordinates.value
-        z = if (z < 1) randomZ() else z - 1
-        val transX = if (z < 1) randomX() else (x / z).map(0f to 1f, 0f to Window.WIDTH.toFloat())
-        val transY = if (z < 1) randomY() else (y / z).map(0f to 1f, 0f to Window.HEIGHT.toFloat())
-        coordinates.value = coordinates.value.copy(transX, transY)
+    companion object {
+        var calls = 0
+    }
+
+    override fun update(scene: Scene) {
+        println("calls ${++calls}")
+        //val (x, y) = coordinates.value
+        z = if (z < 1) Window.WIDTH.toFloat() else z - 1
+        //val transX = if (z < 1) randomX() else (x / z).map(0f to 1f, 0f to Window.WIDTH.toFloat())
+        x = if (z < 1) randomX() else (x / z).map(0f to 1f, 0f to Window.WIDTH.toFloat())
+        //val transY = if (z < 1) randomY() else (y / z).map(0f to 1f, 0f to Window.HEIGHT.toFloat())
+        y = if (z < 1) randomY() else (y / z).map(0f to 1f, 0f to Window.HEIGHT.toFloat())
+        //coordinates.value = coordinates.value.copy(transX, transY)
     }
 }
 
