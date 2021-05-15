@@ -7,6 +7,7 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import domain.SceneEntity
 import domain.Star
+import kotlinx.coroutines.flow.asStateFlow
 
 fun main() {
     Preview {
@@ -65,14 +66,14 @@ class Scene {
             val centerY = canvasHeight / 2
 
             for (star in stars) {
-                val (starX,starY) = star.coordinates.value
+                val starCoordinates = star.coordinates.asStateFlow()
+                val (x,y)= starCoordinates.value
                 drawCircle(
-                    center = Offset(centerX - starX, centerY - starY),
+                    center = Offset(centerX - x, centerY - y),
                     radius = 8f,
                     color = Color.White
                 )
             }
-
         }
     }
 }

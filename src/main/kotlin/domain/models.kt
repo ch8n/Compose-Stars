@@ -3,6 +3,7 @@ package domain
 import Scene
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
+import kotlinx.coroutines.flow.MutableStateFlow
 
 object Window {
     val DEBUG = true
@@ -21,7 +22,7 @@ sealed class SceneEntity {
 
 data class Star(
     private var z: Float = randomZ(),
-    val coordinates: MutableState<Pair<Float, Float>> = mutableStateOf(Pair(randomX(), randomY()))
+    val coordinates: MutableStateFlow<Pair<Float, Float>> = MutableStateFlow(Pair(randomX(), randomY()))
 ) : SceneEntity() {
 
     override fun update(floatDelta: Float, scene: Scene) {
