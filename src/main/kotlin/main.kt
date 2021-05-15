@@ -1,11 +1,16 @@
 import androidx.compose.foundation.Canvas
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.Stroke
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import domain.SceneEntity
 import domain.Star
 
@@ -28,7 +33,7 @@ class Scene {
     fun setupScene() {
         sceneEntity.clear()
         stars.clear()
-        repeat(800) { stars.add(Star()) }
+        repeat(800 * 1) { stars.add(Star()) }
         sceneEntity.addAll(stars)
     }
 
@@ -40,32 +45,79 @@ class Scene {
 
     @Composable
     fun render(frameState: State<Long>) {
-        Canvas(
-            modifier = Modifier
-                .fillMaxSize()
-                .background(color = Color.Black),
+
+        Column(
+            modifier = Modifier.fillMaxSize()
         ) {
 
-            val frameTime = frameState.value
-            val canvasWidth = size.width
-            val canvasHeight = size.height
-            val centerX = canvasWidth / 2
-            val centerY = canvasHeight / 2
 
-            for (star in stars) {
-                val (headX, headY) = star.currentCoordinates
-                val (tailX, tailY) = star.previousCoordinates
+            Box {
+                Canvas(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(color = Color.Black),
+                ) {
 
-                drawLine(
-                    color = Color.White,
-                    start = Offset(centerX - tailX, centerY - tailY),
-                    end = Offset(centerX - headX, centerY - headY),
-                    strokeWidth =  star.radius,
-                )
+                    val frameTime = frameState.value
+                    val canvasWidth = size.width
+                    val canvasHeight = size.height
+                    val centerX = canvasWidth / 2
+                    val centerY = canvasHeight / 2
+
+                    for (star in stars) {
+                        val (headX, headY) = star.currentCoordinates
+                        val (tailX, tailY) = star.previousCoordinates
+
+                        drawLine(
+                            color = Color.White,
+                            start = Offset(centerX - tailX, centerY - tailY),
+                            end = Offset(centerX - headX, centerY - headY),
+                            strokeWidth = star.radius,
+                        )
+                    }
+
+
+                }
+
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+
+                    Spacer(modifier = Modifier.height(100.dp))
+                    Text(
+                        text = "JetPack Compose",
+                        style = MaterialTheme.typography.h1,
+                        color = Color.White,
+                        modifier = Modifier.offset(y = 70.dp)
+                    )
+
+                    Text(
+                        text = "Star".toUpperCase(),
+                        style = MaterialTheme.typography.h1,
+                        color = Color.White,
+                        fontSize = 150.sp,
+                    )
+                    Text(
+                        text = "Wars".toUpperCase(),
+                        style = MaterialTheme.typography.h1,
+                        color = Color.White,
+                        fontSize = 150.sp,
+                        modifier = Modifier.offset(y = (-100).dp)
+                    )
+                    Text(
+                        text = "Chetan Gupta",
+                        style = MaterialTheme.typography.h1,
+                        color = Color.White,
+                        modifier = Modifier.offset(y = (-140).dp)
+                    )
+                }
             }
 
-
         }
+
+
     }
 }
 
