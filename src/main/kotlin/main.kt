@@ -5,9 +5,9 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.drawscope.Stroke
 import domain.SceneEntity
 import domain.Star
-import kotlinx.coroutines.delay
 
 fun main() {
     Preview {
@@ -46,19 +46,25 @@ class Scene {
                 .background(color = Color.Black),
         ) {
 
+            val frameTime = frameState.value
             val canvasWidth = size.width
             val canvasHeight = size.height
             val centerX = canvasWidth / 2
             val centerY = canvasHeight / 2
 
             for (star in stars) {
-                val frameTime = frameState.value
-                drawCircle(
-                    center = Offset(centerX - star.x, centerY - star.y),
-                    radius = 8f,
-                    color = Color.White
+                val (headX, headY) = star.currentCoordinates
+                val (tailX, tailY) = star.previousCoordinates
+
+                drawLine(
+                    color = Color.White,
+                    start = Offset(centerX - tailX, centerY - tailY),
+                    end = Offset(centerX - headX, centerY - headY),
+                    strokeWidth =  star.radius,
                 )
             }
+
+
         }
     }
 }
