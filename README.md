@@ -18,7 +18,6 @@ Compose-StarWar is Desktop application build with ❤️ and 🚀 Jetpack Compos
 
 ## Build-tool 🧰
 You need to have [Intellij Community](https://developer.android.com/studio/preview) to build this project.
-to build this project.
 
 
 ## :eyes: Social
