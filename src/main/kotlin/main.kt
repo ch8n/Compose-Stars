@@ -5,7 +5,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
-import components.drawStar
 import domain.SceneEntity
 import domain.Star
 
@@ -60,10 +59,15 @@ class Scene {
                 .background(color = Color.Black),
         ) {
 
-            stars.forEach { star ->
-                val (x, y) = remember { star.position.value }
+            val canvasWidth = size.width
+            val canvasHeight = size.height
+            val centerX = canvasWidth / 2
+            val centerY = canvasHeight / 2
+
+            for (star in stars) {
+                val (starX,starY) = star.coordinates.value
                 drawCircle(
-                    center = Offset(x, y),
+                    center = Offset(centerX - starX, centerY - starY),
                     radius = 8f,
                     color = Color.White
                 )
@@ -71,4 +75,12 @@ class Scene {
 
         }
     }
+}
+
+fun map(value: Float, range: Pair<Float, Float>, targetRange: Pair<Float, Float>): Float {
+    val (minRange, maxRange) = range
+    val (minMappedRange, maxMappedRange) = targetRange
+    val rangePercentage = (value / minRange + maxRange) * 100
+    val mappedValue = (rangePercentage / 100) * (minMappedRange + maxMappedRange)
+    return mappedValue
 }

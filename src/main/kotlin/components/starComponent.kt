@@ -8,8 +8,9 @@ import domain.Star
 
 @Composable
 fun drawStar(star: Star, drawScope: DrawScope) {
+    val (starX, starY) = star.coordinates.value
     drawScope.drawCircle(
-        center = Offset(star.x, star.y),
+        center = Offset(starX, starY),
         radius = 8f,
         color = Color.White
     )
