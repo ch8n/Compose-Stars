@@ -7,15 +7,16 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import domain.SceneEntity
 import domain.Star
+import kotlinx.coroutines.delay
 
 fun main() {
     Preview {
         val scene = remember { Scene() }
         scene.setupScene()
-        val timeState = StepFrame {
+        val frameState = StepFrame {
             scene.update()
         }
-        scene.render(timeState)
+        scene.render(frameState)
     }
 }
 
@@ -33,26 +34,25 @@ class Scene {
 
     fun update() {
         for (entity in sceneEntity) {
-            entity.update( this)
+            entity.update(this)
         }
     }
 
     @Composable
-    fun render(timeState: State<Long>) {
-        var millis = timeState.value
+    fun render(frameState: State<Long>) {
         Canvas(
             modifier = Modifier
                 .fillMaxSize()
                 .background(color = Color.Black),
         ) {
+
             val canvasWidth = size.width
             val canvasHeight = size.height
             val centerX = canvasWidth / 2
             val centerY = canvasHeight / 2
 
             for (star in stars) {
-                //val starCoordinates = star.coordinates
-                //val (x, y) = starCoordinates.value
+                val frameTime = frameState.value
                 drawCircle(
                     center = Offset(centerX - star.x, centerY - star.y),
                     radius = 8f,

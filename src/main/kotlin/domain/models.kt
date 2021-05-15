@@ -43,7 +43,7 @@ data class Star(
 fun Float.map(fromRange: Pair<Float, Float>, toRange: Pair<Float, Float>): Float {
     val (minRange, maxRange) = fromRange
     val (minMappedRange, maxMappedRange) = toRange
-    val rangePercentage = (this / minRange + maxRange) * 100
-    val mappedValue = (rangePercentage / 100) * (minMappedRange + maxMappedRange)
+    val rangePercentage = (this / maxRange) * 100
+    val mappedValue = (rangePercentage / 100) * (maxMappedRange)
     return mappedValue
 }
