@@ -14,7 +14,6 @@ Compose-StarWar is Desktop application build with ❤️ and 🚀 Jetpack Compos
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) official programming language for Android development.
 - [Jetpack Compose](https://developer.android.com/jetpack/compose) Android’s modern toolkit for building native UI.
-- [Jetpack Compose Navigation](https://developer.android.com/jetpack/compose/navigation) - Navigation between screens of Application
 
 ## Build-tool 🧰
 You need to have [Intellij Community](https://developer.android.com/studio/preview) to build this project.
