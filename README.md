@@ -1,5 +1,5 @@
 # Compose-StarWars
-Compose-StarWar is Desktop application build with ❤️ and 🚀 Jetpack Compose Desktop
+Compose-StarWar 3D Space particle System build using Canvas API Jetpack Compose Desktop 🚀 
 
 ## How to Run
 - From gradle tab from right-hand side
